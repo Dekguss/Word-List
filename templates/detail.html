@@ -139,7 +139,12 @@
 
         function add_ex() {
             let new_ex = $('#new-example').val();
-            console.log(new_ex)
+
+            if (!new_ex.includes(word)) {
+                alert(`Masukkan kalimat yang mengandung kata ${word}!`);
+                return;
+            }
+
             $.ajax({
                 type: "POST",
                 url: `/api/save_ex`,
@@ -151,6 +156,7 @@
                     console.log(response);
                     if(response.result === 'success') {
                         alert(response.msg);
+                        $('#new-example').val('');
                         get_examples();
                     }
                 }
